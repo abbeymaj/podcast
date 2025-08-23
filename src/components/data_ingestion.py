@@ -38,6 +38,8 @@ class DataIngestion():
         ====================================================================================
         '''
         try:
+            logging.info('Beginning the data ingestion process.')
+                        
             # Creating the artifacts folder if the folder does not exist
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
             
@@ -64,6 +66,8 @@ class DataIngestion():
             # Storing the train and test datasets in the artifacts folder
             train_data.to_parquet(self.ingestion_config.train_data_path, index=False, compression='gzip')
             test_data.to_parquet(self.ingestion_config.test_data_path, index=False, compression='gzip')
+            
+            logging.info('Data ingestion process sucessfully completed.')
             
             return (
                 self.ingestion_config.train_data_path,
