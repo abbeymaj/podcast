@@ -1,8 +1,11 @@
 # Importing packages
+import os
 import pytest
 import pandas as pd
 import sklearn
 from src.components.config_entity import DataIngestionConfig
+from src.components.config_entity import DataTransformationConfig
+from src.components.config_entity import CreateFeatureStoreConfig
 from src.components.transform_data import TransformData
 from src.utils import drop_zero_listening_time
 
@@ -66,3 +69,33 @@ def test_initiate_data_transformation(train_dataset, test_dataset):
     assert isinstance(train_arr, pd.DataFrame)
     assert isinstance(test_arr, pd.DataFrame)
     assert isinstance(preprocessor_obj, sklearn.compose._column_transformer.ColumnTransformer)
+
+# Verifying that the preprocessor object was saved in the artifacts folder
+def test_preprocessor_obj_saved():
+    transform_config = DataTransformationConfig()
+    assert os.path.exists(transform_config.preprocessor_obj_path) is True
+
+# Verify that the feature store folder was created
+def test_feature_store_folder_created():
+    feature_store_config = CreateFeatureStoreConfig()
+    assert os.path.exists(os.path.dirname(feature_store_config.xform_train_data)) is True
+
+# Verify that the transformed train dataset was stored in the feature store folder
+def test_transformed_train_dataset_created():
+    feature_store_config = CreateFeatureStoreConfig()
+    assert os.path.exists(feature_store_config.xform_train_data) is True
+
+# Verify that the transformed test dataset was stored in the feature store folder
+def test_transformed_test_dataset_created():
+    feature_store_config = CreateFeatureStoreConfig()
+    assert os.path.exists(feature_store_config.xform_test_data) is True
+
+# Verify that the transformed train dataset is not empty
+def test_transformed_train_dataset_not_empty():
+    feature_store_config = CreateFeatureStoreConfig()
+    assert os.path.getsize(feature_store_config.xform_train_data) > 0
+
+# Verify that the transformed test dataset is not empty
+def test_transformed_test_dataset_not_empty():
+    feature_store_config = CreateFeatureStoreConfig()
+    assert os.path.getsize(feature_store_config.xform_test_data) > 0
