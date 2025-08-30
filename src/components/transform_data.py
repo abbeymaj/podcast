@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from feature_engine.encoding import DecisionTreeEncoder
+from src.components.config_entity import DataIngestionConfig
 from src.components.config_entity import DataTransformationConfig
 from src.exception import CustomException
 from src.logger import logging
@@ -27,7 +28,8 @@ class TransformData():
         This is the constructor for the transform data class. This
         constructor does not have any parameters.
         '''
-        preprocessor_obj_config = DataTransformationConfig()
+        self.data_ingestion_config = DataIngestionConfig()
+        self.preprocessor_obj_config = DataTransformationConfig()
     
     # Creating a method to generate features
     def generate_features(self, df:pd.DataFrame)->pd.DataFrame:
@@ -63,7 +65,7 @@ class TransformData():
             raise CustomException(e, sys)
     
     # Creating a method to construct the preprocessor object
-    def create_preprocessor_obj(self):
+    def create_preprocessor_obj(self, df:pd.DataFrame):
         '''
         This method constructs the preprocessor object, using scikit-learn's 
         ColumnTransformer pipeline and returns the created preprocessor object.
@@ -95,9 +97,7 @@ class TransformData():
             # Creating the categorical pipeline
             cat_pipeline = Pipeline(
                 steps=[
-                    ('tree_encoder', DecisionTreeEncoder(
-                        cv=3, 
-                        scoring='roc_auc', 
+                    ('tree_encoder', DecisionTreeEncoder( 
                         precision=3, 
                         random_state=42
                         )
@@ -122,7 +122,7 @@ class TransformData():
             raise CustomException(e, sys)
     
     # Creating a method to initiate the data transformation process.
-    def initiate_data_transformation(self, train_path:str, test_path:str):
+    def initiate_data_transformation(self, train_path:str, test_path:str, save_object=True):
         '''
         This method initiates the data transformation process. The method accepts the
         train data path and the test data path, transforms the data and returns the 
@@ -144,7 +144,46 @@ class TransformData():
         ====================================================================================
         '''
         try:
-            pass
+            logging.info('Initiating the data transformation process.')
+            
+            # Reading the train and test datasets
+            train_data = pd.read_parquet(self.data_ingestion_config.train_data_path)
+            test_data = pd.read_parquet(self.data_ingestion_config.test_data_path)
+            
+            # Separating the train data into feature and target sets
+            train_features = train_data.copy().drop(labels=['Listening_Time_minutes'], axis=1)
+            train_target = train_data['Listening_Time_minutes'].copy()
+            
+            # Separating the test data into feature and target sets
+            test_features = test_data.copy().drop(labels=['Listening_Time_minutes'], axis=1)
+            test_target = test_data['Listening_Time_minutes'].copy()
+            
+            # Generating features for the train and test datasets
+            train_df = self.generate_features(train_features)
+            test_df = self.generate_features(test_features)
+            
+            # Creating the preprocessor object
+            preprocessor_obj = self.create_preprocessor_obj(train_df)
+            
+            # Transforming the train and test features
+            train_arr = preprocessor_obj.fit_transform(train_df, train_target)
+            test_arr = preprocessor_obj.transform(test_df)
+            
+            # Concatenating the train and test features and targets to store in the feature store
+            train_data_combined = pd.concat([train_arr, train_target], axis=1)
+            test_data_combined = pd.concat([test_arr, test_target], axis=1)
+            
+            # Saving the preprocessor object if the save_object flag is set to True
+            if save_object:
+                joblib.dump(preprocessor_obj, self.preprocessor_obj_config.preprocessor_obj_path)
+            
+            logging.info('Data transformation process completed sucessfully.')
+            
+            return (
+                train_data_combined,
+                test_data_combined,
+                preprocessor_obj
+            )
         
         except Exception as e:
             raise CustomException(e, sys)

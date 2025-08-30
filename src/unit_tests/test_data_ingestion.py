@@ -71,3 +71,8 @@ def test_test_dataset_does_not_contain_dropped_features(test_dataset):
     ]
     df = pd.read_parquet(test_dataset)
     assert all(feature not in list(df.columns) for feature in dropped_features)
+
+# Verify that the target feature is present in the train dataset
+def test_target_feature_present_in_train(train_dataset):
+    df = pd.read_parquet(train_dataset)
+    assert 'Listening_Time_minutes' in list(df.columns)

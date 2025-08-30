@@ -22,3 +22,13 @@ class DataTransformationConfig():
     process.
     '''
     preprocessor_obj_path : str = os.path.join('artifacts', 'preprocessor_obj.joblib')
+
+# Creating a class to define the feature store and store the transformed datasets
+@dataclass
+class CreateFeatureStoreConfig():
+    '''
+    This class defines the path to the feature store, which contains the transformed
+    datasets.
+    '''
+    xform_train_data : str = os.path.join('feature_store', 'xform_train_data.parquet')
+    xform_test_data : str = os.path.join('feature_store', 'xform_test_data.parquet')

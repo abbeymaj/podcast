@@ -1,6 +1,7 @@
 # Importing packages
 import pytest
 import pandas as pd
+import sklearn
 from src.components.config_entity import DataIngestionConfig
 from src.components.transform_data import TransformData
 from src.utils import drop_zero_listening_time
@@ -11,6 +12,12 @@ from src.utils import drop_zero_listening_time
 def train_dataset():
     ingestion_config = DataIngestionConfig()
     return ingestion_config.train_data_path
+
+# Creating a module to fetch the test dataset
+@pytest.fixture(scope='module')
+def test_dataset():
+    ingestion_config = DataIngestionConfig()
+    return ingestion_config.test_data_path
 
 # Verifying that the any rows with listening time of 0 are dropped
 def test_zero_listening_rows_dropped(train_dataset):
@@ -40,3 +47,22 @@ def test_publication_day_time_dropped(train_dataset):
     transform = TransformData()
     df_concat = transform.generate_features(df)
     assert ['Publication_Day', 'Publication_Time'] not in list(df_concat.columns)
+
+# Verifying that the "Listening_Time_minutes" feature is present in the dataset
+def test_target_feature_not_present(train_dataset):
+    df = pd.read_parquet(train_dataset)
+    X = df.copy().drop(labels=['Listening_Time_minutes'], axis=1)
+    y = df['Listening_Time_minutes'].copy()
+    transform = TransformData()
+    df_concat = transform.generate_features(X)
+    assert ['Listening_Time_minutes'] not in list(df_concat.columns)
+
+# Verifying that the data transformation process works as expected
+def test_initiate_data_transformation(train_dataset, test_dataset):
+    df_train = pd.read_parquet(train_dataset)
+    df_test = pd.read_parquet(test_dataset)
+    transform = TransformData()
+    train_arr, test_arr, preprocessor_obj = transform.initiate_data_transformation(df_train, df_test, save_object=False)
+    assert isinstance(train_arr, pd.DataFrame)
+    assert isinstance(test_arr, pd.DataFrame)
+    assert isinstance(preprocessor_obj, sklearn.compose._column_transformer.ColumnTransformer)
