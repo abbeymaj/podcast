@@ -32,3 +32,12 @@ class CreateFeatureStoreConfig():
     '''
     xform_train_data : str = os.path.join('feature_store', 'xform_train_data.parquet')
     xform_test_data : str = os.path.join('feature_store', 'xform_test_data.parquet')
+
+
+# Creating a class to store the model
+@dataclass
+class ModelTrainerConfig():
+    '''
+    This class defines the path to artifact folder where the model is stored.
+    '''
+    model_path : str = os.path.join('artifacts', 'model.joblib')
