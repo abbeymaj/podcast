@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.linear_model import BayesianRidge
 from src.components.config_entity import CreateFeatureStoreConfig
 from src.components.find_best_model import FindBestModel
+from src.components.train_model import TrainModel
 
 # Creating a module to fetch the transformed train dataset
 @pytest.fixture(scope='module')
@@ -53,3 +54,21 @@ def test_find_model_params_type(fetch_train_dataset):
     )
     assert isinstance(best_model, BayesianRidge)
     assert isinstance(best_params, dict)
+
+# Verifying whether the train and test datasets are split into
+# feature and target datasets
+def test_create_feature_target_datasets():
+    train_model = TrainModel()
+    X_train, X_test, y_train, y_test = train_model.create_feature_target_sets()
+    assert X_train is not None
+    assert X_test is not None
+    assert y_train is not None
+    assert y_test is not None
+
+# Verifying that best models are found and training is done as expected
+def test_model_training():
+    model = TrainModel()
+    best_model, best_params, metric = model.initiate_model_training(make_prediction=True)
+    assert best_model is not None
+    assert best_params is not None
+    assert metric is not None

@@ -101,7 +101,7 @@ class TransformData():
                         precision=3, 
                         random_state=42
                         )
-                     ),
+                    ),
                     ('std_scaler', StandardScaler())
                 ]
             )
