@@ -128,11 +128,11 @@ class TrainModel():
             logging.info('Model training process completed.')
             
             # Saving the model if save_model flag is set to True
-            if save_model is True:
+            if save_model:
                 joblib.dump(best_model, self.trained_model_config.model_path)
             
             # Making a prediction when the make_prediction flag is set to True
-            if make_prediction is True:
+            if make_prediction:
                 y_pred = best_model.predict(X_test)
                 metric = np.sqrt(mean_squared_error(y_test, y_pred))
                 
