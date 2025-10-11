@@ -134,5 +134,25 @@ def read_json_file(file_path:str):
     
     except Exception as e:
         raise CustomException(e, sys)
+
+# Creating a function to fetch the current time
+def get_current_time():
+    '''
+    This function fetches the current time and returns it in the format
+    YYYY-MM-DD HH:MM:SS.
+    ========================================================================================
+    ---------------------
+    Returns:
+    ---------------------
+    current_time : str - This is the current time in the format YYYY-MM-DD HH:MM:SS.
+    =========================================================================================
+    '''
+    try:
+        time = str(datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S'))
+        current_time = datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+        return current_time
+    
+    except Exception as e:
+        raise CustomException(e, sys)
     
     
