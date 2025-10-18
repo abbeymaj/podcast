@@ -41,3 +41,11 @@ class ModelTrainerConfig():
     This class defines the path to artifact folder where the model is stored.
     '''
     model_path : str = os.path.join('artifacts', 'model.joblib')
+    
+# Creating a class to store the mlflow model uri path
+@dataclass
+class ModelURIConfig():
+    '''
+    This class defines the path to the mlflow tracking uri.
+    '''
+    model_uri : str = 'https://dagshub.com/abbeymaj/podcast.mlflow'
