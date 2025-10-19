@@ -22,7 +22,7 @@ def fetch_error_message(error, error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
     line_number = exc_tb.tb_lineno
-    error_message = "Error occurred in python script name [{0}] line number [{1}] with error message [{3}]".format(
+    error_message = "Error occurred in python script name [{0}] line number [{1}] with error message [{2}]".format(
         file_name, line_number, str(error)
     )
     return error_message

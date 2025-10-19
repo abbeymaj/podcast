@@ -103,7 +103,27 @@ class MakePredictions():
         =============================================================================================
         '''
         try:
-            pass
+            logging.info("Making prediction on the input data from user.")
+            
+            # Fetching the preprocessor object
+            preprocessor_obj = joblib.load(self.preprocessor_obj)
+            
+            # Fetch the trained model from the model registry
+            model = self.fetch_latest_model()
+            
+            # Transforming the input features
+            transform = TransformData()
+            added_features = transform.generate_features(features)
+            transformed_data = preprocessor_obj.transform(added_features)
+            
+            # Using the transformed feature set to make predictions
+            preds = model.predict(transformed_data)
+            preds = float(preds[0])
+            
+            logging.info("Prediction were made successfully!")
+            
+            return preds
+            
         
         except Exception as e:
             raise CustomException(e, sys)

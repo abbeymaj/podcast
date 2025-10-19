@@ -17,20 +17,20 @@ class CreateCustomData():
     # Creating the constructor for the class
     def __init__(
         self,
-        podcast_name:str,
-        episode_length:float,
-        genre:str,
-        publication_day:str,
-        publication_time:str
+        Podcast_Name:str,
+        Episode_Length_minutes:float,
+        Genre:str,
+        Publication_Day:str,
+        Publication_Time:str
         ):
         '''
         This is the constructor for the create custom data class.
         '''
-        self.podcast_name = podcast_name
-        self.episode_length = episode_length
-        self.genre = genre
-        self.publication_day = publication_day
-        self.publication_time = publication_time
+        self.Podcast_Name = Podcast_Name
+        self.Episode_Length_minutes = Episode_Length_minutes
+        self.Genre = Genre
+        self.Publication_Day = Publication_Day
+        self.Publication_Time = Publication_Time
     
     # Creating a method to convert user entered data into a pandas dataframe
     def create_dataframe(self):
@@ -54,11 +54,11 @@ class CreateCustomData():
             # Converting the user entered data into a dictionary
             data = {
                 'time': [current_time],
-                'podcast_name': [self.podcast_name],
-                'episode_length': [self.episode_length],
-                'genre': [self.genre],
-                'publication_day': [self.publication_day],
-                'publication_time': [self.publication_time]
+                'Podcast_Name': [self.Podcast_Name],
+                'Episode_Length_minutes': [self.Episode_Length_minutes],
+                'Genre': [self.Genre],
+                'Publication_Day': [self.Publication_Day],
+                'Publication_Time': [self.Publication_Time]
             }
             
             # Creating a pandas dataframe from the dictionary

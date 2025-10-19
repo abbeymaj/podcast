@@ -38,3 +38,22 @@ def test_fetch_latest_model():
     make_pred = MakePredictions()
     model = make_pred.fetch_latest_model()
     assert model is not None
+
+# Verifying that the generate features method can handle lower case columns
+def test_prediction_features():
+    data_dict = {
+        'Podcast_Name': 'Study Sessions',
+        'Episode_Length_minutes': 60.00,
+        'Genre': 'Comedy',
+        'Publication_Day': 'Monday',
+        'Publication_Time': 'Morning'
+    }
+    custom_data = CreateCustomData(**data_dict)
+    df = custom_data.create_dataframe()
+    df.drop(labels=['time'], axis=1, inplace=True)
+    #print(df)
+    pred = MakePredictions()
+    preds = pred.make_predictions(df)
+    #print('Prediction Score: ', preds)
+    assert preds is not None
+    assert isinstance(preds, float)
