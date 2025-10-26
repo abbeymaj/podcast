@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Podcast Listenting Prediction</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <a href="https://github.com/abbeymaj/podcast" class="top-left-link" target="_blank">GitHub Repository</a>
+        <h1>Predicting Podcast Listening Time</h1>
+        <img src="{{ url_for('static', filename='images/podcast.jpg') }}" alt="main image" class="profile">
+        <div class="form-box">
+            <form action="{{ url_for('predict_datapoint') }}" method="POST">
+
+            </form>
+
+        </div>
+    </body>
+</html>
