@@ -10,9 +10,106 @@
         <img src="{{ url_for('static', filename='images/podcast.jpg') }}" alt="main image" class="profile">
         <div class="form-box">
             <form action="{{ url_for('predict_datapoint') }}" method="POST">
-
+                <div class="form-group">
+                    <label for="Podcast_Name">Podcast Name</label>
+                    <select id="Podcast_Name" name="Podcast_Name" placeholder="Select a Podcast" required>
+                        <option value="Mystery Matters">Mystery Matters</option>
+                        <option value="Joke Junction">Joke Junction</option>
+                        <option value="Study Sessions">Study Sessions</option>
+                        <option value="Digital Digest">Digital Digest</option>
+                        <option value="Mind & Body">Mind & Body</option>
+                        <option value="Fitness First">Fitness First</option>
+                        <option value="Criminal Minds">Criminal Minds</option>
+                        <option value="News Roundup">News Roundup</option>
+                        <option value="Daily Digest">Daily Digest</option>
+                        <option value="Music Matters">Music Matters</option>
+                        <option value="Sports Central">Sports Central</option>
+                        <option value="Melody Mix">Melody Mix</option>
+                        <option value="Game Day">Game Day</option>
+                        <option value="Gadget Geek">Gadget Geek</option>
+                        <option value="Global News">Global News</option>
+                        <option value="Tech Talks">Tech Talks</option>
+                        <option value="Sport Spot">Sport Spot</option>
+                        <option value="Funny Folks">Funny Folks</option>
+                        <option value="Sports Weekly">Sports Weekly</option>
+                        <option value="Business Briefs">Business Briefs</option>
+                        <option value="Tech Trends">Tech Trends</option>
+                        <option value="Innovators">Innovators</option>
+                        <option value="Health Hour">Health Hour</option>
+                        <option value="Comedy Corner">Comedy Corner</option>
+                        <option value="Sound Waves">Sound Waves</option>
+                        <option value="Brain Boost">Brain Boost</option>
+                        <option value="Athlete's Arena">Athlete's Arena</option>
+                        <option value="Wellness Wave">Wellness Wave</option>
+                        <option value="Style Guide">Style Guide</option>
+                        <option value="World Watch">World Watch</option>
+                        <option value="Humor Hub">Humor Hub</option>
+                        <option value="Money Matters">Money Matters</option>
+                        <option value="Healthy Living">Healthy Living</option>
+                        <option value="Home & Living">Home & Living</option>
+                        <option value="Educational Nuggets">Educational Nuggets</option>
+                        <option value="Market Masters">Market Masters</option>
+                        <option value="Learning Lab">Learning Lab</option>
+                        <option value="Lifestyle Lounge">Lifestyle Lounge</option>
+                        <option value="Crime Chronicles">Crime Chronicles</option>
+                        <option value="Detective Diaries">Detective Diaries</option>
+                        <option value="Life Lessons">Life Lessons</option>
+                        <option value="Current Affairs">Current Affairs</option>
+                        <option value="Finance Focus">Finance Focus</option>
+                        <option value="Laugh Line">Laugh Line</option>
+                        <option value="True Crime Stories">True Crime Stories</option>
+                        <option value="Business Insights">Business Insights</option>
+                        <option value="Fashion Forward">Fashion Forward</option>
+                        <option value="Tune Time">Tune Time</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Episode_Length_minutes">Episode Length (in minutes)</label>
+                    <input type="float" name="Episode_Length_minutes" id="Episode_Length_minutes" min="0.00" max="350.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="Genre">Genre</label>
+                    <select id="Genre" name="Genre" placeholder="Genre" required>
+                        <option value="True Crime">True Crime</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Education">Education</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Health">Health</option>
+                        <option value="News">News</option>
+                        <option value="Music">Music</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Business">Business</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Publication_Day">Publication Day</label>
+                    <select id="Publication_Day" name="Publication_Day" placeholder="Select Day" required>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Publication_Time">Publication Time</label>
+                    <select id="Publication_Time" name="Publication_Time" placeholder="Select Time" required>
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Evening">Evening</option>
+                        <option value="Night">Night</option>
+                    </select>
+                </div>
+                <div style="clear:both;">
+                    <input type="submit" value="Predict" class="button">
+                </div>
             </form>
-
         </div>
+        <h2>
+            Based on your input, the predicted listening time is: {{ results }} minutes.
+        </h2>
     </body>
 </html>
