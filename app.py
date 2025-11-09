@@ -1,11 +1,13 @@
 # Importing packages
 import pandas as pd
 from flask import Flask, request, render_template, jsonify
+from src.components.create_app import create_app, db
+from src.components.models import Data, Predictions
 from src.components.create_custom_data import CreateCustomData
 from src.components.make_predictions import MakePredictions 
 
 # Creating the flask app
-app = Flask(__name__)
+app = create_app()
 
 # Creating the home page
 @app.route('/')
@@ -38,6 +40,17 @@ def predict_datapoint():
             Publication_Time = str(request.form.get('Publication_Time'))
         )
         
+        # Loading the data into the database
+        user_data = Data(
+            Podcast_Name = str(request.form.get('Podcast_Name')),
+            Episode_Length_minutes = float(request.form.get('Episode_Length_minutes')),
+            Genre = str(request.form.get('Genre')),
+            Publication_Day = str(request.form.get('Publication_Day')),
+            Publication_Time = str(request.form.get('Publication_Time'))
+        )
+        db.session.add(user_data)
+        db.session.flush()
+        
         # Creating a dataframe from the user entered data
         df = data.create_dataframe()
         df.drop(labels=['time'], axis=1, inplace=True)
@@ -45,6 +58,14 @@ def predict_datapoint():
         # Making predictions using the user entered data
         prediction = MakePredictions()
         preds = prediction.make_predictions(df)
+        
+        # Storing the predictions in the database
+        preds_data = Predictions(
+            data_id = user_data.id,
+            prediction = preds
+        )
+        db.session.add(preds_data)
+        db.session.commit()
         
         # Returning the prediction to the web application
         return render_template('predict.html', results=preds, pred_df=df)

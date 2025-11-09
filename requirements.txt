@@ -4,6 +4,7 @@ scikit-learn
 xgboost
 Flask
 flask_cors
+Flask-SQLAlchemy
 pytest
 pyarrow
 fastparquet
