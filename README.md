@@ -16,11 +16,19 @@ To install the project, use the following:
     
 ## Tech Stack
 
-**Client:** Flask, HTML, CSS
+**Frontend:** Flask, HTML, CSS
+
+**Backend:** Flask
 
 **Language:** Python
 
-**Model Registry:** MLflow
+**Model Registry:** MLflow (via Dagshub)
+
+**Monitoring:** Evidently
+
+**Feature Store:** GitHub
+
+**CI/CD:** GitHub Actions
 
 ## Screenshots of the Prediction Website 
 
