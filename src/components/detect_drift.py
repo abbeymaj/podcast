@@ -1,5 +1,6 @@
 import sys
 import os
+from datetime import datetime, timezone
 import pandas as pd 
 from evidently import Dataset, DataDefinition, Report, Regression
 from evidently.presets import DataDriftPreset
@@ -107,6 +108,26 @@ class DetectDataDrift():
             if save_report:
                 os.makedirs(os.path.dirname(self.report_config.report_path), exist_ok=True)
                 my_eval.save_html(self.report_config.report_path)
+        
+        except Exception as e:
+            raise CustomException(e, sys)
+    
+    
+    # Creating a method to run the drift detection process on a scheduled time
+    def run_drift_detection(self):
+        '''
+        This method runs the drift detection process on a scheduled time.
+        '''
+        try:
+            # Fetching the current time
+            today = datetime.now(timezone.utc)
+            
+            # Running the drift detection process on the scheduled time
+            if 1 <= today.day <= 7:
+                self.detect_data_drift()
+            
+            else:
+                print("Drift detection process not scheduled to run.")
         
         except Exception as e:
             raise CustomException(e, sys)
