@@ -11,4 +11,5 @@ fastparquet
 mlflow==2.7.1
 dagshub
 feature-engine
+evidently
 #-e .

@@ -1,5 +1,6 @@
 # Importing packages
 import os
+from datetime import datetime
 from dataclasses import dataclass
 
 # Creating a class to store the configuration for the data ingestion
@@ -49,3 +50,21 @@ class ModelURIConfig():
     This class defines the path to the mlflow tracking uri.
     '''
     model_uri : str = 'https://dagshub.com/abbeymaj/podcast.mlflow'
+
+# Creating a class to store the path to the SQLite database
+@dataclass
+class DatabaseConfig():
+    '''
+    This class stores the path to the SQLite database.
+    '''
+    db_path : str = os.path.join('db', 'podcast.db')
+
+# Creating a class to store the path to the drift detection report
+@dataclass
+class DriftDetectorConfig():
+    '''
+    This class stores the path to the drift detection report.
+    '''
+    current_date = datetime.now().strftime('%Y_%m_%d')
+    report_name = current_date + '_drift_report.html'
+    report_path : str = os.path.join('reports', report_name)

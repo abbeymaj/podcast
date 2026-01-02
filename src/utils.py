@@ -4,9 +4,11 @@ import os
 import json
 from pathlib import Path
 import pandas as pd
+import sqlite3
 from datetime import datetime
 from src.logger import logging
 from src.exception import CustomException
+from src.components.config_entity import DatabaseConfig
 
 # Creating a function to drop all rows that have a listing time of 0
 def drop_zero_listening_time(df:pd.DataFrame)->pd.DataFrame:
@@ -151,6 +153,47 @@ def get_current_time():
         time = str(datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S'))
         current_time = datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
         return current_time
+    
+    except Exception as e:
+        raise CustomException(e, sys)
+
+# Creating a function to read the data in the SQLite database
+def read_sql_data(table='data'):
+    '''
+    This function reads the data from the SQLite database and returns it as a pandas
+    dataframe.
+    ========================================================================================
+    ---------------------
+    Parameters:
+    ---------------------
+    table : str - This is the name of the table in the database. The default value is 'data'.
+    Allowed values are 'data' and 'predictions'.
+    
+    ---------------------
+    Returns:
+    ---------------------
+    df : Pandas dataframe - This is the Pandas dataframe containing the data from the 
+    SQLite database.
+    =========================================================================================
+    '''
+    try:
+        # Reading the path to the database
+        db_config = DatabaseConfig()
+        db_path = db_config.db_path
+        
+        # Creating a connection to the database
+        conn = sqlite3.connect(db_path)
+        
+        # Creating the query to read the data
+        query = f"SELECT * FROM {table}"
+        
+        # Reading the data into a dataframe
+        df = pd.read_sql_query(query, con=conn)
+        
+        # Closing the connection
+        conn.close()
+        
+        return df
     
     except Exception as e:
         raise CustomException(e, sys)
