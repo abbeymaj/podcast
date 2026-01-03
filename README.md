@@ -30,6 +30,14 @@ To install the project, use the following:
 
 **CI/CD:** GitHub Actions
 
+**Database:** SQLite
+
+## High-Level Design Document 
+
+The link to the High-Level Design Document is as follows:
+
+![High-Level Design Document Link](https://github.com/abbeymaj80/my-ml-datasets/raw/refs/heads/master/Design_Docs/ML_Podcast_Listening_Prediction_HLD.docx)
+
 ## Screenshots of the Prediction Website 
 
 There are two webpages, which the user can interact with, for the project. 
