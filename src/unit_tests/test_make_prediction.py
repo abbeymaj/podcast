@@ -15,11 +15,11 @@ def test_get_current_time():
 # Verifying that the create custom data class works as expected
 def test_create_custom_data():
     data_dict = {
-        'podcast_name': 'test',
-        'episode_length': 60.0,
-        'genre': 'test_genre',
-        'publication_day': 'Monday',
-        'publication_time': '08:00:00'
+        'Podcast_Name': 'test',
+        'Episode_Length_minutes': 60.0,
+        'Genre': 'test_genre',
+        'Publication_Day': 'Monday',
+        'Publication_Time': '08:00:00'
     }
     custom_data = CreateCustomData(**data_dict)
     df = custom_data.create_dataframe()
