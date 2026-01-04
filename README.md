@@ -1,59 +1,67 @@
-## Predicting Time Spent Listening to a Podcast
+# 🎧 Predicting Podcast Listening Time  
+*A Machine Learning project to estimate how long a user will listen to a podcast episode.*
 
-The objective of this project is to predict the number of minutes a user will spend listening to a podcast, given the podcast name, genre, episode length and publication day & time. This problem is a regression problem.
+---
 
-## Installation
+## 📌 Overview  
+This project predicts the **number of minutes** a user will spend listening to a podcast based on:
 
-Install the project using pip. It is always recommended to use a virtual environment (for example, using anaconda) to do the installation.
+- Podcast name  
+- Genre  
+- Episode length  
+- Publication day & time  
 
-This project was built using Python 3.9.
+The task is framed as a **regression problem**, and the project includes a full end‑to‑end workflow: data ingestion, model training, model registry, monitoring, and a Flask-based web interface for real-time predictions.
 
-To install the project, use the following: 
+---
+
+## 🚀 Installation  
+
+It is recommended to install dependencies inside a **virtual environment** (e.g., `venv` or Anaconda).
+
+This project was built using **Python 3.9**.
 
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
+
 ```
-    
-## Tech Stack
+## 🧰 Tech Stack  
 
-**Frontend:** Flask, HTML, CSS
+| Category | Tools |
+|---------|-------|
+| **Frontend** | Flask, HTML, CSS |
+| **Backend** | Flask |
+| **Language** | Python |
+| **Model Registry** | MLflow (via Dagshub) |
+| **Monitoring** | Evidently |
+| **Feature Store** | GitHub |
+| **CI/CD** | GitHub Actions |
+| **Database** | SQLite |
 
-**Backend:** Flask
+---
 
-**Language:** Python
+## 🏗️ High‑Level Design Document  
 
-**Model Registry:** MLflow (via Dagshub)
+You can view the full High‑Level Design Document here:
 
-**Monitoring:** Evidently
+[📄 **ML Podcast Listening Prediction – HLD**](https://github.com/abbeymaj80/my-ml-datasets/raw/refs/heads/master/Design_Docs/ML_Podcast_Listening_Prediction_HLD.docx)
 
-**Feature Store:** GitHub
+---
 
-**CI/CD:** GitHub Actions
+## 🌐 Web Application Screenshots  
 
-**Database:** SQLite
+The project includes a simple two‑page Flask web app for user interaction.
 
-## High-Level Design Document 
+---
 
-The link to the High-Level Design Document is as follows:
+### 🏠 Landing Page  
+Provides an overview of the project and navigation to the prediction interface.
 
-![High-Level Design Document Link](https://github.com/abbeymaj80/my-ml-datasets/raw/refs/heads/master/Design_Docs/ML_Podcast_Listening_Prediction_HLD.docx)
+![Landing Page Screenshot](https://github.com/abbeymaj80/my-ml-datasets/blob/master/screenshots/Podcast_Landing_Page.png)
 
-## Screenshots of the Prediction Website 
+---
 
-There are two webpages, which the user can interact with, for the project. 
+### 🎯 Prediction Page  
+Allows users to input podcast details (name, genre, episode length, publication day/time) and generate a predicted listening duration.
 
-Landing Page:
-
-This is the landing page for the project. The page provides a brief overview of the project and then allows the user to navigate to the prediction page. 
-
-The screenshot of the Landing Page is given below:
-
-![Landing Page Screenshot Link](https://github.com/abbeymaj80/my-ml-datasets/blob/master/screenshots/Podcast_Landing_Page.png)
-
-Prediction Page:
-
-The prediction page enables the user to select or enter information that allows a user to select podcast name, genre, episode length and publication day & time. This information will be used to predict the number of minutes a user will spend listening to the podcast. Once the user enters the necessary information, the user must click on the "Predict" button to generate the prediction.
-
-The screenshot of the Prediction page is given below:
-
-![Prediction page Screenshot Link](https://github.com/abbeymaj80/my-ml-datasets/blob/master/screenshots/Podcast_Prediction_Page.png)
+![Prediction Page Screenshot](https://github.com/abbeymaj80/my-ml-datasets/blob/master/screenshots/Podcast_Prediction_Page.png)
