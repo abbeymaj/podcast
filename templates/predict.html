@@ -9,7 +9,7 @@
         <h1>Predicting Podcast Listening Time</h1>
         <img src="{{ url_for('static', filename='images/podcast.jpg') }}" alt="main image" class="profile">
         <div class="form-box">
-            <form action="{{ url_for('predict_datapoint') }}" method="POST">
+            <form action="{{ url_for('main.predict_datapoint') }}" method="POST">
                 <div class="form-group">
                     <label for="Podcast_Name">Podcast Name</label>
                     <select id="Podcast_Name" name="Podcast_Name" placeholder="Select a Podcast" required>

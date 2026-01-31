@@ -1,6 +1,6 @@
 # Importing packages
 from datetime import datetime, timezone
-from src.components.create_app import db
+from src.web_components.create_app import db
 
 # Creating a class to define the table to store the user entered data
 class Data(db.Model):
