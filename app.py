@@ -1,8 +1,8 @@
 # Importing packages
 import pandas as pd
 from flask import Flask, request, render_template, jsonify
-from src.components.create_app import create_app, db
-from src.components.models import Data, Predictions
+from src.web_components.create_app import create_app, db
+from src.web_components.models import Data, Predictions
 from src.components.create_custom_data import CreateCustomData
 from src.components.make_predictions import MakePredictions 
 
