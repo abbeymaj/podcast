@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 You can view the full High‑Level Design Document here:
 
-[📄 **ML Podcast Listening Prediction – HLD**](https://github.com/abbeymaj80/my-ml-datasets/raw/refs/heads/master/Design_Docs/ML_Podcast_Listening_Prediction_HLD.docx)
+[📄 **ML Podcast Listening Prediction – HLD**](https://github.com/abbeymaj80/my-ml-datasets/raw/refs/heads/master/Design_Docs/ML_Podcast_Listening_Prediction_HLD_v1.0.docx)
 
 ---
 
