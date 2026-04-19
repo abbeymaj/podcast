@@ -118,7 +118,7 @@ class MakePredictions():
             
             # Using the transformed feature set to make predictions
             preds = model.predict(transformed_data)
-            preds = float(preds[0])
+            preds = round(float(preds[0]), 2)
             
             logging.info("Prediction were made successfully!")
             
